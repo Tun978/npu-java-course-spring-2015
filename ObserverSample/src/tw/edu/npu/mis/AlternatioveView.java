@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Samael Wang <freesamael@gmail.com>
+ * Copyright (c) 2015, Perfect978
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,29 +25,47 @@
  */
 package tw.edu.npu.mis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Simulation of a GUI application.
  *
- * @author Samael Wang <freesamael@gmail.com>
+ * @author Perfect978
  */
-public class ObserverSample {
+public class AlternatioveView implements AllView,Showable{
 
-    public static void main(String[] args) {
-        // Initialize MVC and Window objects.
-        Window window = new Window();
-        Model model = new Model();
-        Controller controller = new Controller(model);
-        List<Showable> views = new ArrayList<>();
-        views.add(new View("View 1", window, model));
-        views.add(new AlternatioveView("View 2", window, model));
-        views.add(new View("View 3", window, model));
-
-        // Start the event loop.
-        window.startEventLoop(controller, views);
-
+    private final String mName;
+    private final Window mWindow;
+    private final Model mModel;
+    String s = "";
+    
+    public AlternatioveView(String name, Window window, Model model) {
+        mName = name;
+        mWindow = window;
+        mModel = model;
+    }
+    
+    public void invalidate() {
+        mWindow.schduleRedraw(this);
+    }
+    
+    public void show()
+    {
+        String s = mModel.getData();
+        String schange = "";
+        for(int i = s.length() - 1; i >= 0; i--)
+        {
+            schange += s.substring(i, i+1);
+        }
+        System.out.println("View (" + mName + "): " + schange);
         
+    }
+
+    //@Override
+    public void onDraw() {
+        Updata();
+    }
+    
+    public void Updata()
+    {
+        if(!s.equals(mModel.getData())) show();
+        s = mModel.getData();
     }
 }

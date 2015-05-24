@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Samael Wang <freesamael@gmail.com>
+ * Copyright (c) 2015, Perfect978
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,29 +25,14 @@
  */
 package tw.edu.npu.mis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Simulation of a GUI application.
  *
- * @author Samael Wang <freesamael@gmail.com>
+ * @author Perfect978
  */
-public class ObserverSample {
-
-    public static void main(String[] args) {
-        // Initialize MVC and Window objects.
-        Window window = new Window();
-        Model model = new Model();
-        Controller controller = new Controller(model);
-        List<Showable> views = new ArrayList<>();
-        views.add(new View("View 1", window, model));
-        views.add(new AlternatioveView("View 2", window, model));
-        views.add(new View("View 3", window, model));
-
-        // Start the event loop.
-        window.startEventLoop(controller, views);
-
-        
-    }
+public interface AllView {
+    //public void Updata();
+    //public void invalidate();
+    public void Updata();
+    //public void onDraw();
+    
 }
