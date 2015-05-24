@@ -60,10 +60,7 @@ public class Window {
         }
     }
 
-    public void onDraw()
-    {
-        
-    }
+    
     
     /**
      * Add a view to a queue for redraw on screen later.

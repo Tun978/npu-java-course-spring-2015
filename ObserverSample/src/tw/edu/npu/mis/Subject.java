@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Subject {
     
-    private Controller mController;
+    //private Controller mController;
     List<AllView> allview = new ArrayList<>();
     //List<Showable> sb = new ArrayList<>();
     
@@ -48,7 +48,7 @@ public class Subject {
         allview.remove(o);
     }
     
-    public void NotifyServer()
+    public void NotifyObserver()
     {
         for(AllView o : allview)
         {

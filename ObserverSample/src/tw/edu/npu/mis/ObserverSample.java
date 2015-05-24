@@ -47,7 +47,5 @@ public class ObserverSample {
 
         // Start the event loop.
         window.startEventLoop(controller, views);
-
-        
     }
 }

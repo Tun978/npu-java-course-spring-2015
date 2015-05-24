@@ -51,6 +51,7 @@ public class Model extends Subject{
      */
     public void setData(String data) {
         mData = data;
+        this.NotifyObserver();
     }
 
 }

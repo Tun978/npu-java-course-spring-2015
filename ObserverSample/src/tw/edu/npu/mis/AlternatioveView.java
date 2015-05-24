@@ -44,6 +44,7 @@ public class AlternatioveView implements AllView,Showable{
     
     public void invalidate() {
         mWindow.schduleRedraw(this);
+        
     }
     
     public void show()
@@ -60,12 +61,12 @@ public class AlternatioveView implements AllView,Showable{
 
     //@Override
     public void onDraw() {
-        Updata();
+        if(!s.equals(mModel.getData())) show();
+        s = mModel.getData();
     }
     
     public void Updata()
     {
-        if(!s.equals(mModel.getData())) show();
-        s = mModel.getData();
+        invalidate();
     }
 }
