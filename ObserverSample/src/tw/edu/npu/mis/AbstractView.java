@@ -29,13 +29,12 @@ package tw.edu.npu.mis;
  *
  * @author STP
  */
-public abstract class AbstractView implements AllView{
+public abstract class AbstractView implements AllView,Showable{
 
     abstract void invalidate();
-    abstract void onDraw();
     
     @Override
-    public void Updata() {
+    public void upData() {
         invalidate();
     }
     

@@ -30,7 +30,7 @@ package tw.edu.npu.mis;
  *
  * @author Samael Wang <freesamael@gmail.com>
  */
-public class View implements AllView,Showable{
+public class View extends AbstractView{
 
     private final String mName;
     private final Window mWindow;
@@ -54,11 +54,11 @@ public class View implements AllView,Showable{
      * Show the content of the model on the console.
      */
     public void onDraw() {
-        if(!s.equals(mModel.getData())) System.out.println("View (" + mName + "): " + mModel.getData());
-        s = mModel.getData();
+        if((s != null && !s.equals(mModel.getData())) && mModel.getData() != null) System.out.println("View (" + mName + "): " + mModel.getData());
+        if(mModel.getData() != null)s = mModel.getData();
     }
 
-    public void Updata()
+    public void upData()
     {
         invalidate();
     }

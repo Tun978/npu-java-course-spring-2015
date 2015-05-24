@@ -29,13 +29,20 @@ package tw.edu.npu.mis;
  *
  * @author Perfect978
  */
-public class AlternatioveView implements AllView,Showable{
+public class AlternatioveView extends AbstractView{
 
     private final String mName;
     private final Window mWindow;
     private final Model mModel;
     String s = "";
     
+    
+    /**
+     * 
+     * @param name
+     * @param window
+     * @param model 
+     */
     public AlternatioveView(String name, Window window, Model model) {
         mName = name;
         mWindow = window;
@@ -44,28 +51,20 @@ public class AlternatioveView implements AllView,Showable{
     
     public void invalidate() {
         mWindow.schduleRedraw(this);
-        
     }
     
     public void show()
     {
-        String s = mModel.getData();
-        String schange = "";
-        for(int i = s.length() - 1; i >= 0; i--)
-        {
-            schange += s.substring(i, i+1);
-        }
-        System.out.println("View (" + mName + "): " + schange);
-        
+        System.out.println("View (" + mName + "): " + new StringBuilder(mModel.getData()).reverse());
     }
 
     //@Override
     public void onDraw() {
-        if(!s.equals(mModel.getData())) show();
-        s = mModel.getData();
+        if((s != null && !s.equals(mModel.getData())) && mModel.getData() != null) show();
+        if(mModel.getData() != null)s = mModel.getData();
     }
     
-    public void Updata()
+    public void upData()
     {
         invalidate();
     }

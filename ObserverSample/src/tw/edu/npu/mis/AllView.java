@@ -30,9 +30,5 @@ package tw.edu.npu.mis;
  * @author Perfect978
  */
 public interface AllView {
-    //public void Updata();
-    //public void invalidate();
-    public void Updata();
-    //public void onDraw();
-    
+    public void upData();
 }

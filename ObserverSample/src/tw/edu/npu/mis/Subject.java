@@ -34,25 +34,23 @@ import java.util.List;
  */
 public class Subject {
     
-    //private Controller mController;
     List<AllView> allview = new ArrayList<>();
-    //List<Showable> sb = new ArrayList<>();
     
-    public void Attach(AllView o)
+    public void attach(AllView o)
     {
         allview.add(o);
     }
     
-    public void Detach(AllView o)
+    public void detach(AllView o)
     {
         allview.remove(o);
     }
     
-    public void NotifyObserver()
+    public void notifyObserver()
     {
         for(AllView o : allview)
         {
-            o.Updata();
+            o.upData();
         }
     }
     
