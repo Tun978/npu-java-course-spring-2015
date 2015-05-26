@@ -34,7 +34,6 @@ public class AlternatioveView extends AbstractView{
     private final String mName;
     private final Window mWindow;
     private final Model mModel;
-    String s = "";
     
     
     /**
@@ -47,6 +46,7 @@ public class AlternatioveView extends AbstractView{
         mName = name;
         mWindow = window;
         mModel = model;
+        mModel.attach(this);
     }
     
     public void invalidate() {
@@ -60,8 +60,7 @@ public class AlternatioveView extends AbstractView{
 
     //@Override
     public void onDraw() {
-        if((s != null && !s.equals(mModel.getData())) && mModel.getData() != null) show();
-        if(mModel.getData() != null)s = mModel.getData();
+        show();
     }
     
     public void upData()

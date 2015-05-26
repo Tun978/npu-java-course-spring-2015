@@ -36,7 +36,7 @@ import java.util.List;
 public class Window {
 
     private Controller mController;
-    private List<Showable> mInvalidViews;
+    private List<Showable> mInvalidViews = new ArrayList<>();
 
     /**
      * Start the event loop.
@@ -45,9 +45,8 @@ public class Window {
      * @param views The views to draw on the first loop.
      */
     
-    public void startEventLoop(Controller c, List<Showable> views) {
+    public void startEventLoop(Controller c) {
         mController = c;
-        mInvalidViews = new ArrayList<>(views);
 
         // Simulate how an event loop works.
         while (true) {
@@ -55,8 +54,7 @@ public class Window {
             for (Showable v : mInvalidViews) {
                 v.onDraw();
             }
-            
-            //mInvalidViews.clear();
+            mInvalidViews.clear();
         }
     }
 
@@ -68,6 +66,8 @@ public class Window {
      * @param v View to redraw.
      */
     public void schduleRedraw(Showable v) {
-        mInvalidViews.add(v);
+        if(!mInvalidViews.contains(v)){
+            mInvalidViews.add(v);
+        }
     }
 }

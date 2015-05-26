@@ -35,12 +35,12 @@ public class View extends AbstractView{
     private final String mName;
     private final Window mWindow;
     private final Model mModel;
-    String s = "";
 
     public View(String name, Window window, Model model) {
         mName = name;
         mWindow = window;
         mModel = model;
+        mModel.attach(this);
     }
 
     /**
@@ -54,8 +54,7 @@ public class View extends AbstractView{
      * Show the content of the model on the console.
      */
     public void onDraw() {
-        if((s != null && !s.equals(mModel.getData())) && mModel.getData() != null) System.out.println("View (" + mName + "): " + mModel.getData());
-        if(mModel.getData() != null)s = mModel.getData();
+        System.out.println("View (" + mName + "): " + mModel.getData());
     }
 
     public void upData()
