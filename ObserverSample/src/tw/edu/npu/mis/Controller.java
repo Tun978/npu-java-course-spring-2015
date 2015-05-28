@@ -29,18 +29,24 @@ import java.util.Scanner;
 
 /**
  * {@link Controller} retrieves inputs from the user.
- *
+ * 有 Model類別
+ * 有鍵盤傳入值方法 readInput
  * @author Samael Wang <freesamael@gmail.com>
  */
 public class Controller {
 
     private final Model mModel;
 
+    /**
+     * 建構值
+     * @param model 傳入Model類別
+     */
     public Controller(Model model) {
         mModel = model;
     }
 
     /**
+     * 鍵盤輸入檢查有無值傳入 Model
      * Read input and update model accordingly.
      */
     public void readInput() {

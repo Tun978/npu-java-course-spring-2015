@@ -26,7 +26,11 @@
 package tw.edu.npu.mis;
 
 /**
- *
+ * 有名稱屬性 Window類別 Model類別
+ * 有加入顯示排程的方法 invalidate
+ * 顯示內容的方法 onDraw
+ * 更新資料方法 upData
+ * 文字反向顯示方法 show
  * @author Perfect978
  */
 public class AlternatioveView extends AbstractView{
@@ -37,10 +41,10 @@ public class AlternatioveView extends AbstractView{
     
     
     /**
-     * 
-     * @param name
-     * @param window
-     * @param model 
+     * AlternatioveView建構值
+     * @param name 傳入要取的名稱
+     * @param window 傳入Window類別
+     * @param model 傳入Model類別
      */
     public AlternatioveView(String name, Window window, Model model) {
         mName = name;
@@ -49,22 +53,27 @@ public class AlternatioveView extends AbstractView{
         mModel.attach(this);
     }
     
+    /**
+     * 加入顯示排程
+     * Invalidate the view, which indicates it needs to be redrawn later.
+     */
     public void invalidate() {
         mWindow.schduleRedraw(this);
     }
     
+    /**
+     * 文字反向顯示方法
+     */
     public void show()
     {
         System.out.println("View (" + mName + "): " + new StringBuilder(mModel.getData()).reverse());
     }
 
-    //@Override
+    /**
+     * 顯示內容
+     * Show the content of the model on the console.
+     */
     public void onDraw() {
         show();
-    }
-    
-    public void upData()
-    {
-        invalidate();
     }
 }

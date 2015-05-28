@@ -27,7 +27,10 @@ package tw.edu.npu.mis;
 
 /**
  * {@link View} generates outputs to the user.
- *
+ * 有名稱屬性 Window類別 Model類別
+ * 有加入顯示排程的方法 invalidate
+ * 顯示內容的方法 onDraw
+ * 更新資料方法 upData
  * @author Samael Wang <freesamael@gmail.com>
  */
 public class View extends AbstractView{
@@ -36,6 +39,12 @@ public class View extends AbstractView{
     private final Window mWindow;
     private final Model mModel;
 
+    /**
+     * View建構值
+     * @param name 傳入要取的名稱
+     * @param window 傳入Window類別
+     * @param model 傳入Model類別
+     */
     public View(String name, Window window, Model model) {
         mName = name;
         mWindow = window;
@@ -44,6 +53,7 @@ public class View extends AbstractView{
     }
 
     /**
+     * 加入顯示排程
      * Invalidate the view, which indicates it needs to be redrawn later.
      */
     public void invalidate() {
@@ -51,14 +61,10 @@ public class View extends AbstractView{
     }
     
     /**
+     * 顯示內容
      * Show the content of the model on the console.
      */
     public void onDraw() {
         System.out.println("View (" + mName + "): " + mModel.getData());
-    }
-
-    public void upData()
-    {
-        invalidate();
     }
 }

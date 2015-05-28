@@ -29,23 +29,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 有AllView陣列
+ * 加入View方法 attach
+ * 移除View方法 detach
+ * 檢查有無內容的方法 notifyObserver
  * @author STP
  */
 public class Subject {
     
     List<AllView> allview = new ArrayList<>();
     
+    /**
+     * 加入View
+     * @param o 傳入AllView類別
+     */
     public void attach(AllView o)
     {
         allview.add(o);
     }
     
+    /**
+     * 移除View
+     * @param o 傳入AllView類別
+     */
     public void detach(AllView o)
     {
         allview.remove(o);
     }
     
+    /**
+     * 檢查有無內容
+     */
     public void notifyObserver()
     {
         for(AllView o : allview)

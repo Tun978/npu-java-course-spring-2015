@@ -26,7 +26,8 @@
 package tw.edu.npu.mis;
 
 /**
- *
+ * 實作 AllView 與 Showable
+ * 更新資料方法 upData
  * @author STP
  */
 public abstract class AbstractView implements AllView,Showable{

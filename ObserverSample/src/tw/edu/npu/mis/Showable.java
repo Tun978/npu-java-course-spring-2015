@@ -26,7 +26,7 @@
 package tw.edu.npu.mis;
 
 /**
- *
+ * 顯示資料方法介面
  * @author STP
  */
 public interface Showable {

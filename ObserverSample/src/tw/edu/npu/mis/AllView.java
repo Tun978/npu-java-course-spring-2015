@@ -26,7 +26,7 @@
 package tw.edu.npu.mis;
 
 /**
- *
+ * 更新資料方法介面
  * @author Perfect978
  */
 public interface AllView {
