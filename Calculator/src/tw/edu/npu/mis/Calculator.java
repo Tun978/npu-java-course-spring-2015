@@ -9,6 +9,7 @@ package tw.edu.npu.mis;
  * The model class of the calculator application.
  */
 public class Calculator {
+    String data = "";
     
     /**
      * The available operators of the calculator.
@@ -34,6 +35,7 @@ public class Calculator {
     }
     
     public void appendDigit(int digit) {
+        data += String.valueOf(digit);
         // TODO code application logic here
     }
     
@@ -55,6 +57,8 @@ public class Calculator {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+         new Screen().setVisible(true);
+  
     }
 
 }
