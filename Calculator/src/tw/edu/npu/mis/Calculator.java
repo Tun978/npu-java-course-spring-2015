@@ -8,8 +8,9 @@ package tw.edu.npu.mis;
 /**
  * The model class of the calculator application.
  */
-public class Calculator {
-    String data = "";
+public class Calculator extends java.util.Observable{
+    //String data = "";
+    private int data;
     
     /**
      * The available operators of the calculator.
@@ -35,30 +36,54 @@ public class Calculator {
     }
     
     public void appendDigit(int digit) {
-        data += String.valueOf(digit);
         // TODO code application logic here
+        //data += String.valueOf(digit);
+        data = 1;
+        setChanged();
+	notifyObservers(data);
+        
     }
     
     public void appendDot() {
         // TODO code application logic here
+        setChanged();
+	notifyObservers(data);
+        
     }
     
     public void performOperation(Operator operator) {
         // TODO code application logic here
+        setChanged();
+	notifyObservers(data);
+        
     }
     
     public String getDisplay() {
         // TODO code application logic here
         return null;
     }
+    
+    public void setValue(int value) {
+        this.data = value;
+        setChanged();
+	notifyObservers(data);
+    }
 
+    public void incrementValue() {
+
+	++data;
+	System.out.println("Model     : counter = " + data);
+	setChanged();
+	notifyObservers(data);
+
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // TODO code application logic here
-         new Screen().setVisible(true);
-  
-    }
+        
+    }*/
 
 }

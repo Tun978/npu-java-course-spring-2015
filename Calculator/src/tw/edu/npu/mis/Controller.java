@@ -9,10 +9,25 @@ package tw.edu.npu.mis;
  *
  * @author STP
  */
-public class Controller {
-    public Calculator mcalculator;
-    public Controller(Calculator calculator) {
-        mcalculator = calculator;
-        //mcalculator.appendDigit(0);
-    }
+public class Controller implements java.awt.event.ActionListener{
+    
+        Calculator mModel;
+        View mView;
+        
+        public void actionPerformed(java.awt.event.ActionEvent e){
+		//mModel.appendDigit(1);
+                mModel.incrementValue();
+	}
+    
+        public void addModel(Calculator m){
+		this.mModel = m;
+	}
+    
+        public void addView(View v){
+		this.mView = v;
+	}
+        
+        public void initModel(int x){
+		mModel.setValue(x);
+	}
 }
