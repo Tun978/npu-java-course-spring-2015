@@ -10,27 +10,23 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.JFrame;
-import java.awt.event.WindowEvent;	//for CloseListener()
-import java.awt.event.WindowAdapter;	//for CloseListener()
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Perfect978
  */
 public class View implements java.util.Observer{
-    private TextField mTextField;
-    private JButton[] mButtonArray; 
-    private JButton mButton;
-    //private JFrame mFrame;
+    private JTextField mTextField;
+    protected JButton[] mButtonArray; 
     
     public View()
     {
-        mButtonArray = new JButton[50];
+        mButtonArray = new JButton[28];
         JFrame mFrame = new JFrame("Calculator");
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -46,7 +42,6 @@ public class View implements java.util.Observer{
         {
             for(int j = 0; j < 5; j++)
             {
-                
                 gbc.gridx = j;
                 gbc.gridy = i;
                 
@@ -56,18 +51,10 @@ public class View implements java.util.Observer{
                     gbc.gridheight = 1;
                     gbc.gridwidth = 2;
                 }
-                //mButtonArray[count] = new Button(buttonTextArray[count]);
-                mButtonArray[count] = new JButton("0");
+                else if(count == 28) break;
+                mButtonArray[count] = new JButton(buttonTextArray[count]);
                 mButtonArray[count].setSize(new Dimension(50, 30));
-                if(count == 24)
-                {
-                    gbc.gridheight = 2;
-                }
-                else if(count == 25)
-                {
-                    gbc.gridheight = 1;
-                    gbc.gridwidth = 2;
-                }
+
                 ContentPane.add(mButtonArray[count], gbc);
                 gbc.gridwidth = 1;
                 
@@ -79,26 +66,19 @@ public class View implements java.util.Observer{
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 5;
-        mTextField = new TextField(15);
+        mTextField = new JTextField(15);
+        mTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         ContentPane.add(mTextField, gbc);
         
-        mButton = new JButton("Test");
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        ContentPane.add(mButton, gbc);
-        
-        mFrame.setSize(200,100);
-	mFrame.setLocation(100,100);
         mFrame.pack();
         mFrame.setVisible(true);
     }
     
     public void update(Observable obs, Object obj) {
-        mTextField.setText("" + ((Integer)obj).intValue());
+        mTextField.setText(obj.toString());
     }
     
     public void addController(ActionListener controller){
-        //for(int i = 0; i <= 28; i++)mButtonArray[i].addActionListener(controller);
-        mButton.addActionListener(controller);
+        for(int i = 0; i < 28; i++)mButtonArray[i].addActionListener(controller);
     }
 }

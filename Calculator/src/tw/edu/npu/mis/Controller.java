@@ -15,8 +15,8 @@ public class Controller implements java.awt.event.ActionListener{
         View mView;
         
         public void actionPerformed(java.awt.event.ActionEvent e){
-		//mModel.appendDigit(1);
-                mModel.incrementValue();
+            String s = e.getSource().toString().substring(e.getSource().toString().indexOf("text=")+5, e.getSource().toString().lastIndexOf(","));
+            mModel.setEvent(s);
 	}
     
         public void addModel(Calculator m){
@@ -25,9 +25,5 @@ public class Controller implements java.awt.event.ActionListener{
     
         public void addView(View v){
 		this.mView = v;
-	}
-        
-        public void initModel(int x){
-		mModel.setValue(x);
 	}
 }
