@@ -9,7 +9,7 @@ package tw.edu.npu.mis;
  * The model class of the calculator application.
  */
 public class Calculator extends java.util.Observable{
-    private String mData1 = "", mData2 = "", mEvent = "";
+    private String mData1 = "", mData2 = "", mEvent = "", mMemorize = "0";
     
     /**
      * The available operators of the calculator.
@@ -43,6 +43,7 @@ public class Calculator extends java.util.Observable{
     
     public void appendDot() {
         // TODO code application logic here
+        mData1 += ".";
         getDisplay();
         
     }
@@ -51,6 +52,38 @@ public class Calculator extends java.util.Observable{
         // TODO code application logic here
         switch(operator)
         {
+            case MEM_CLEAR:
+                mMemorize = "0";
+                break;
+            case MEM_SET:
+                mMemorize = mData1;
+                mData1 = "";
+                break;
+            case MEM_PLUS:
+                mMemorize = String.valueOf(Double.valueOf(mMemorize) + Double.valueOf(mData1));
+                mData1 = "";
+                if(mMemorize.substring(mMemorize.length()-2, mMemorize.length()).equals(".0")) mMemorize = mMemorize.replace(".0", "");
+                break;
+            case MEM_MINUS:
+                mMemorize = String.valueOf(Double.valueOf(mMemorize) - Double.valueOf(mData1));
+                mData1 = "";
+                if(mMemorize.substring(mMemorize.length()-2, mMemorize.length()).equals(".0")) mMemorize = mMemorize.replace(".0", "");
+                break;
+            case MEM_RECALL:
+                mData1 = mMemorize;
+                break;
+            case PLUS_MINUS:
+                mData1 = String.valueOf(Double.valueOf(mData1) - Double.valueOf(mData1)*2);
+                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
+                break;
+            case CLEAR:
+                mData2 = "";
+                mData1 = "";
+                mEvent = "";
+                break;
+            case CLEAR_ENTRY:
+                mData1 = "";
+                break;
             case PLUS:
                 mData2 = mData1;
                 mData1 = "";
@@ -72,16 +105,24 @@ public class Calculator extends java.util.Observable{
                 mEvent = "/";
                 break;
             case EQUAL:
-                if(mEvent.equals("+"))
-                mData1 = String.valueOf(Integer.valueOf(mData2) + Integer.valueOf(mData1));
+                if(mEvent.equals(""))break;
+                else if(mEvent.equals("+"))
+                mData1 = String.valueOf(Double.valueOf(mData2) + Double.valueOf(mData1));
                 else if(mEvent.equals("-"))
-                mData1 = String.valueOf(Integer.valueOf(mData2) - Integer.valueOf(mData1));
+                mData1 = String.valueOf(Double.valueOf(mData2) - Double.valueOf(mData1));
                 else if(mEvent.equals("*"))
-                mData1 = String.valueOf(Integer.valueOf(mData2) * Integer.valueOf(mData1));
+                mData1 = String.valueOf(Double.valueOf(mData2) * Double.valueOf(mData1));
                 else if(mEvent.equals("/"))
-                mData1 = String.valueOf(Integer.valueOf(mData2) / Integer.valueOf(mData1));
+                mData1 = String.valueOf(Double.valueOf(mData2) / Double.valueOf(mData1));
+                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
                 break;
         }
+        getDisplay();
+        
+    }
+    
+    public void cutDigit(){
+        if(mData1.length() > 0)mData1 = mData1.substring(0, mData1.length()-1);
         getDisplay();
         
     }
@@ -97,6 +138,12 @@ public class Calculator extends java.util.Observable{
         for(int i = 0; i < 10; i++)if(e.equals(String.valueOf(i)))appendDigit(Integer.valueOf(e));
         switch(e)
         {
+            case ".":
+                appendDot();
+                break;
+            case "←":
+                cutDigit();
+                break;
             case "+":
                 performOperation(Operator.PLUS);
                 break;
@@ -111,7 +158,32 @@ public class Calculator extends java.util.Observable{
                 break;
             case "=":
                 performOperation(Operator.EQUAL);
-                break;    
+                break;
+            case "C":
+                performOperation(Operator.CLEAR);
+                break;
+            case "CE":
+                performOperation(Operator.CLEAR_ENTRY);
+                break;
+            case "±":
+                performOperation(Operator.PLUS_MINUS);
+                break;
+            case "MC":
+                performOperation(Operator.MEM_CLEAR);
+                break;
+            case "MS":
+                performOperation(Operator.MEM_SET);
+                break;
+            case "M+":
+                performOperation(Operator.MEM_PLUS);
+                break;
+            case "M-":
+                performOperation(Operator.MEM_MINUS);
+                break;
+            case "MR":
+                performOperation(Operator.MEM_RECALL);
+                break;
+            
         }
     }
     
