@@ -52,6 +52,15 @@ public class Calculator extends java.util.Observable{
         // TODO code application logic here
         switch(operator)
         {
+            case SQRT:
+                mData1 = String.valueOf(Math.sqrt(Double.valueOf(mData1)));
+                break;
+            case PERCENT:
+                if(!mData2.equals("")) mData1 = String.valueOf((Double.valueOf(mData1) * Double.valueOf(mData2))/100);
+                break;
+            case RECIPROCAL:
+                mData1 = String.valueOf(1 / Double.valueOf(mData1));
+                break;
             case MEM_CLEAR:
                 mMemorize = "0";
                 break;
@@ -182,6 +191,15 @@ public class Calculator extends java.util.Observable{
                 break;
             case "MR":
                 performOperation(Operator.MEM_RECALL);
+                break;
+            case "√":
+                performOperation(Operator.SQRT);
+                break;
+            case "%":
+                performOperation(Operator.PERCENT);
+                break;
+            case "1/x":
+                performOperation(Operator.RECIPROCAL);
                 break;
             
         }
