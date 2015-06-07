@@ -52,6 +52,9 @@ public class Calculator extends java.util.Observable{
         // TODO code application logic here
         switch(operator)
         {
+            case BACKSPACE:
+                if(mData1.length() > 0)mData1 = mData1.substring(0, mData1.length()-1);
+                break;
             case SQRT:
                 mData1 = String.valueOf(Math.sqrt(Double.valueOf(mData1)));
                 break;
@@ -130,12 +133,6 @@ public class Calculator extends java.util.Observable{
         
     }
     
-    public void cutDigit(){
-        if(mData1.length() > 0)mData1 = mData1.substring(0, mData1.length()-1);
-        getDisplay();
-        
-    }
-    
     public String getDisplay() {
         // TODO code application logic here
         setChanged();
@@ -151,7 +148,7 @@ public class Calculator extends java.util.Observable{
                 appendDot();
                 break;
             case "←":
-                cutDigit();
+                performOperation(Operator.BACKSPACE);
                 break;
             case "+":
                 performOperation(Operator.PLUS);
