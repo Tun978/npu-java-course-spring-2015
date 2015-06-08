@@ -43,7 +43,7 @@ public class Calculator extends java.util.Observable{
     
     public void appendDot() {
         // TODO code application logic here
-        mData1 += ".";
+        if(mData1.indexOf(".") < 0)mData1 += ".";
         getDisplay();
         
     }
@@ -97,39 +97,57 @@ public class Calculator extends java.util.Observable{
                 mData1 = "";
                 break;
             case PLUS:
+                performEqual();
                 mData2 = mData1;
                 mData1 = "";
                 mEvent = "+";
                 break;
             case MINUS:
+                performEqual();
                 mData2 = mData1;
                 mData1 = "";
                 mEvent = "-";
                 break;
             case TIMES:
+                performEqual();
                 mData2 = mData1;
                 mData1 = "";
                 mEvent = "*";
                 break;
             case OVER:
+                performEqual();
                 mData2 = mData1;
                 mData1 = "";
                 mEvent = "/";
                 break;
             case EQUAL:
-                if(mEvent.equals(""))break;
-                else if(mEvent.equals("+"))
-                mData1 = String.valueOf(Double.valueOf(mData2) + Double.valueOf(mData1));
-                else if(mEvent.equals("-"))
-                mData1 = String.valueOf(Double.valueOf(mData2) - Double.valueOf(mData1));
-                else if(mEvent.equals("*"))
-                mData1 = String.valueOf(Double.valueOf(mData2) * Double.valueOf(mData1));
-                else if(mEvent.equals("/"))
-                mData1 = String.valueOf(Double.valueOf(mData2) / Double.valueOf(mData1));
-                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
+                performEqual();
                 break;
         }
         getDisplay();
+        
+    }
+    
+    public void performEqual()
+    {
+        switch(mEvent)
+        {
+            case "":
+                return;
+            case "+":
+                mData1 = String.valueOf(Double.valueOf(mData2) + Double.valueOf(mData1));
+                break;
+            case "-":
+                mData1 = String.valueOf(Double.valueOf(mData2) - Double.valueOf(mData1));
+                break;
+            case "*":
+                mData1 = String.valueOf(Double.valueOf(mData2) * Double.valueOf(mData1));
+                break;
+            case "/":
+                mData1 = String.valueOf(Double.valueOf(mData2) / Double.valueOf(mData1));
+                break;
+        }
+        if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
         
     }
     

@@ -11,9 +11,10 @@ package tw.edu.npu.mis;
  */
 public class Controller implements java.awt.event.ActionListener{
     
-        Calculator mModel;
-        View mView;
+        private Calculator mModel;
+        private View mView;
         
+        @Override
         public void actionPerformed(java.awt.event.ActionEvent e){
             String s = e.getSource().toString().substring(e.getSource().toString().indexOf("text=")+5, e.getSource().toString().lastIndexOf(","));
             mModel.setEvent(s);

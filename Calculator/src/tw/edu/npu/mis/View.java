@@ -21,8 +21,8 @@ import javax.swing.JTextField;
  * @author Perfect978
  */
 public class View implements java.util.Observer{
-    private JTextField mTextField;
-    protected JButton[] mButtonArray; 
+    private final JTextField mTextField;
+    private final JButton[] mButtonArray; 
     
     public View()
     {
@@ -74,6 +74,7 @@ public class View implements java.util.Observer{
         mFrame.setVisible(true);
     }
     
+    @Override
     public void update(Observable obs, Object obj) {
         mTextField.setText(obj.toString());
     }
