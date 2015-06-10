@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -22,7 +23,8 @@ import javax.swing.JTextField;
  */
 public class View implements java.util.Observer{
     private final JTextField mTextField;
-    private final JButton[] mButtonArray; 
+    private final JButton[] mButtonArray;
+    private final JLabel mLabel;
     
     public View()
     {
@@ -38,7 +40,7 @@ public class View implements java.util.Observer{
 
         int count = 0;
         String[] buttonTextArray = {"MC","MR","MS","M+","M-","←","CE","C","±","√","7","8","9","/","%","4","5","6","*","1/x","1","2","3","-","=","0",".","+"};
-        for(int i = 1; i <= 6; i++)
+        for(int i = 2; i <= 7; i++)
         {
             for(int j = 0; j < 5; j++)
             {
@@ -65,6 +67,11 @@ public class View implements java.util.Observer{
         
         gbc.gridx = 0;
         gbc.gridy = 0;
+        mLabel = new JLabel(" ");
+        ContentPane.add(mLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         gbc.gridwidth = 5;
         mTextField = new JTextField(15);
         mTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -76,7 +83,18 @@ public class View implements java.util.Observer{
     
     @Override
     public void update(Observable obs, Object obj) {
-        mTextField.setText(obj.toString());
+        if(obj.toString().indexOf("M") >= 0)
+        {
+            mLabel.setText("M");
+            mTextField.setText(obj.toString().substring(1, obj.toString().length()));
+        }
+        else 
+        {
+            mLabel.setText(" ");
+            mTextField.setText(obj.toString());
+            
+        }
+        
     }
     
     public void addController(ActionListener controller){

@@ -98,30 +98,31 @@ public class Calculator extends java.util.Observable{
                 break;
             case PLUS:
                 performEqual();
-                mData2 = mData1;
+                if(!mData1.equals(""))mData2 = mData1;
                 mData1 = "";
                 mEvent = "+";
                 break;
             case MINUS:
                 performEqual();
-                mData2 = mData1;
+                if(!mData1.equals(""))mData2 = mData1;
                 mData1 = "";
                 mEvent = "-";
                 break;
             case TIMES:
                 performEqual();
-                mData2 = mData1;
+                if(!mData1.equals(""))mData2 = mData1;
                 mData1 = "";
                 mEvent = "*";
                 break;
             case OVER:
                 performEqual();
-                mData2 = mData1;
+                if(!mData1.equals(""))mData2 = mData1;
                 mData1 = "";
                 mEvent = "/";
                 break;
             case EQUAL:
                 performEqual();
+                mData2 = "";
                 break;
         }
         getDisplay();
@@ -130,6 +131,7 @@ public class Calculator extends java.util.Observable{
     
     public void performEqual()
     {
+        if(mData1.equals("") || mData2.equals(""))return;
         switch(mEvent)
         {
             case "":
@@ -154,7 +156,18 @@ public class Calculator extends java.util.Observable{
     public String getDisplay() {
         // TODO code application logic here
         setChanged();
-	notifyObservers(mData1);
+        String sendString = "";
+        if(!this.mMemorize.equals("0"))sendString += "M";
+        if(!mEvent.equals("") && mData1.equals(""))
+        {
+            sendString += mData2;
+            notifyObservers(sendString);
+        }
+        else 
+        {
+            sendString += mData1;
+            notifyObservers(sendString);
+        }
         return null;
     }
     
