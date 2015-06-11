@@ -18,7 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
- *
+ * View
+ * 實作 java.util.Observer
+ * 內有 28個JButton 1個JTextField 1個JLabel
  * @author Perfect978
  */
 public class View implements java.util.Observer{
@@ -26,6 +28,10 @@ public class View implements java.util.Observer{
     private final JButton[] mButtonArray;
     private final JLabel mLabel;
     
+    /**
+     * 設計JFrame畫面
+     * 放入 28個JButton 1個JTextField 1個JLabel
+     */
     public View()
     {
         mButtonArray = new JButton[28];
@@ -81,6 +87,14 @@ public class View implements java.util.Observer{
         mFrame.setVisible(true);
     }
     
+    /**
+     * 更新顯示畫面內容
+     * 判斷是否有 M
+     * 有 M Label 顯示 M
+     * 沒有 Label 顯示 空白
+     * @param obs 接收 Observable 物件
+     * @param obj 接收 Observable 的 notifyObservers 內容
+     */
     @Override
     public void update(Observable obs, Object obj) {
         if(obj.toString().indexOf("M") >= 0)
@@ -97,6 +111,10 @@ public class View implements java.util.Observer{
         
     }
     
+    /**
+     * 28個按鈕加入 Controller 行動事件
+     * @param controller 傳入 Controller
+     */
     public void addController(ActionListener controller){
         for(int i = 0; i < 28; i++)mButtonArray[i].addActionListener(controller);
     }

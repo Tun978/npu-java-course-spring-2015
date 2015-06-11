@@ -6,12 +6,16 @@
 package tw.edu.npu.mis;
 
 /**
+ * Model
+ * 繼承 java.util.Observable 觀察者模式
+ * 內有 mData1 mData2 mEvent mMemorize字串
  * The model class of the calculator application.
  */
 public class Calculator extends java.util.Observable{
     private String mData1 = "", mData2 = "", mEvent = "", mMemorize = "0";
     
     /**
+     * Operator列舉
      * The available operators of the calculator.
      */
     public enum Operator {
@@ -34,13 +38,24 @@ public class Calculator extends java.util.Observable{
         MEM_RECALL   // MR
     }
     
+    /**
+     * 加入0~9數字到 mData1
+     * 判斷內容是否過多 0
+     * 加入數字完呼叫 getDisplay
+     * @param digit 傳入點擊的數字 
+     */
     public void appendDigit(int digit) {
         // TODO code application logic here
-        mData1 += String.valueOf(digit);
+        if(!(mData1.length() == 1 && mData1.indexOf("0") >= 0)) mData1 += String.valueOf(digit);
         getDisplay();
         
     }
     
+    /**
+     * 加入小數點到 mData1
+     * 判斷不要過多點
+     * 加完呼叫 getDisplay
+     */
     public void appendDot() {
         // TODO code application logic here
         if(mData1.indexOf(".") < 0)mData1 += ".";
@@ -48,6 +63,12 @@ public class Calculator extends java.util.Observable{
         
     }
     
+    /**
+     * 傳入列舉內容
+     * 依傳入的內容選擇運算
+     * 運算完呼叫 getDisplay
+     * @param operator 傳入Operator列舉
+     */
     public void performOperation(Operator operator) {
         // TODO code application logic here
         switch(operator)
@@ -59,10 +80,13 @@ public class Calculator extends java.util.Observable{
                 mData1 = String.valueOf(Math.sqrt(Double.valueOf(mData1)));
                 break;
             case PERCENT:
-                if(!mData2.equals("")) mData1 = String.valueOf((Double.valueOf(mData1) * Double.valueOf(mData2))/100);
+                if(!mData2.equals("") && !mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData1) * Double.valueOf(mData2))/100);
+                else if(mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData2)/100));
+                mData2 = "";
                 break;
             case RECIPROCAL:
                 mData1 = String.valueOf(1 / Double.valueOf(mData1));
+                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
                 break;
             case MEM_CLEAR:
                 mMemorize = "0";
@@ -129,6 +153,10 @@ public class Calculator extends java.util.Observable{
         
     }
     
+    /**
+     * 等於運算
+     * 加,減,乘,除,等於 運算時先執行現有內容的等於運算
+     */
     public void performEqual()
     {
         if(mData1.equals("") || mData2.equals(""))return;
@@ -153,7 +181,12 @@ public class Calculator extends java.util.Observable{
         
     }
     
-    public String getDisplay() {
+    /**
+     * 顯示內容數字
+     * 判斷是否有記憶數字與運算符號
+     * notifyObservers 內容傳給 View 接收
+     */
+    public void getDisplay() {
         // TODO code application logic here
         setChanged();
         String sendString = "";
@@ -168,9 +201,13 @@ public class Calculator extends java.util.Observable{
             sendString += mData1;
             notifyObservers(sendString);
         }
-        return null;
     }
     
+    /**
+     * 接收要執行按鈕
+     * 選擇要執行的方法
+     * @param e 傳入按鈕名稱
+     */
     public void setEvent(String e) {
         for(int i = 0; i < 10; i++)if(e.equals(String.valueOf(i)))appendDigit(Integer.valueOf(e));
         switch(e)
@@ -234,6 +271,10 @@ public class Calculator extends java.util.Observable{
     }
     
     /**
+     * 主程式
+     * 建立 Model View Controller
+     * Controller 傳入 Model View
+     * View 的按鈕行動加入 Controller
      * @param args the command line arguments
      */
     public static void main(String[] args) {
