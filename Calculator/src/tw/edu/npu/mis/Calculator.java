@@ -47,6 +47,7 @@ public class Calculator extends java.util.Observable{
     public void appendDigit(int digit) {
         // TODO code application logic here
         if(!(mData1.length() == 1 && mData1.indexOf("0") >= 0)) mData1 += String.valueOf(digit);
+        else if(mData1.length() == 1 && digit != 0) mData1 = String.valueOf(digit);
         getDisplay();
         
     }
@@ -74,19 +75,32 @@ public class Calculator extends java.util.Observable{
         switch(operator)
         {
             case BACKSPACE:
-                if(mData1.length() > 0)mData1 = mData1.substring(0, mData1.length()-1);
+                if(mData1.length() > 0 && !mData1.equals("0"))
+                {
+                    if(mData1.indexOf("-") >= 0 && mData1.length() == 2) mData1 = "0";
+                    else mData1 = mData1.substring(0, mData1.length()-1);
+                }
                 break;
             case SQRT:
-                mData1 = String.valueOf(Math.sqrt(Double.valueOf(mData1)));
+                if(!mData1.equals(""))mData1 = String.valueOf(Math.sqrt(Double.valueOf(mData1)));
+                else mData1 = "0";
+                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", ""); 
                 break;
             case PERCENT:
-                if(!mData2.equals("") && !mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData1) * Double.valueOf(mData2))/100);
-                else if(mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData2)/100));
-                mData2 = "";
+                if(!mData1.equals(""))
+                {
+                    if(!mData2.equals("") && !mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData1) * Double.valueOf(mData2))/100);
+                    else if(mData1.equals("")) mData1 = String.valueOf((Double.valueOf(mData2)/100));
+                }
+                else mData1 = "0";
                 break;
             case RECIPROCAL:
-                mData1 = String.valueOf(1 / Double.valueOf(mData1));
-                if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", "");
+                if(!mData1.equals("") && !mData1.equals("0"))
+                {
+                    mData1 = String.valueOf(1 / Double.valueOf(mData1));
+                    if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", ""); 
+                }
+                
                 break;
             case MEM_CLEAR:
                 mMemorize = "0";
