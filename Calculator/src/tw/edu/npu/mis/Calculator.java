@@ -97,7 +97,7 @@ public class Calculator extends java.util.Observable{
                 else mData1 = "0";
                 break;
             case RECIPROCAL:
-                if(mMft == false && !mData1.equals("") && !mData1.equals("0"))
+                if(!mData1.equals("") && !mData1.equals("0"))
                 {
                     mData1 = String.valueOf(1 / Double.valueOf(mData1));
                     if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", ""); 
