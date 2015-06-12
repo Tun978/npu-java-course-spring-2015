@@ -13,6 +13,7 @@ package tw.edu.npu.mis;
  */
 public class Calculator extends java.util.Observable{
     private String mData1 = "", mData2 = "", mEvent = "", mMemorize = "0";
+    private boolean mMft = false;
     
     /**
      * Operator列舉
@@ -59,7 +60,8 @@ public class Calculator extends java.util.Observable{
      */
     public void appendDot() {
         // TODO code application logic here
-        if(mData1.indexOf(".") < 0)mData1 += ".";
+        if(mMft == true) {mData1 = "0."; mMft = false;}
+        else if(mData1.indexOf(".") < 0)mData1 += ".";
         getDisplay();
         
     }
@@ -75,7 +77,7 @@ public class Calculator extends java.util.Observable{
         switch(operator)
         {
             case BACKSPACE:
-                if(mData1.length() > 0 && !mData1.equals("0"))
+                if(mMft == false && mData1.length() > 0 && !mData1.equals("0"))
                 {
                     if(mData1.indexOf("-") >= 0 && mData1.length() == 2) mData1 = "0";
                     else mData1 = mData1.substring(0, mData1.length()-1);
@@ -95,7 +97,7 @@ public class Calculator extends java.util.Observable{
                 else mData1 = "0";
                 break;
             case RECIPROCAL:
-                if(!mData1.equals("") && !mData1.equals("0"))
+                if(mMft == false && !mData1.equals("") && !mData1.equals("0"))
                 {
                     mData1 = String.valueOf(1 / Double.valueOf(mData1));
                     if(mData1.substring(mData1.length()-2, mData1.length()).equals(".0")) mData1 = mData1.replace(".0", ""); 
@@ -107,20 +109,20 @@ public class Calculator extends java.util.Observable{
                 break;
             case MEM_SET:
                 mMemorize = mData1;
-                mData1 = "";
                 break;
             case MEM_PLUS:
                 mMemorize = String.valueOf(Double.valueOf(mMemorize) + Double.valueOf(mData1));
-                mData1 = "";
                 if(mMemorize.substring(mMemorize.length()-2, mMemorize.length()).equals(".0")) mMemorize = mMemorize.replace(".0", "");
+                mMft = true;
                 break;
             case MEM_MINUS:
                 mMemorize = String.valueOf(Double.valueOf(mMemorize) - Double.valueOf(mData1));
-                mData1 = "";
                 if(mMemorize.substring(mMemorize.length()-2, mMemorize.length()).equals(".0")) mMemorize = mMemorize.replace(".0", "");
+                mMft = true;
                 break;
             case MEM_RECALL:
                 mData1 = mMemorize;
+                mMft = true;
                 break;
             case PLUS_MINUS:
                 mData1 = String.valueOf(Double.valueOf(mData1) - Double.valueOf(mData1)*2);
@@ -223,7 +225,14 @@ public class Calculator extends java.util.Observable{
      * @param e 傳入按鈕名稱
      */
     public void setEvent(String e) {
-        for(int i = 0; i < 10; i++)if(e.equals(String.valueOf(i)))appendDigit(Integer.valueOf(e));
+        for(int i = 0; i < 10; i++)
+        {
+            if(e.equals(String.valueOf(i)))
+            {
+                if(mMft == true) {mMft = false; mData1 = "";}
+                appendDigit(Integer.valueOf(e));
+            }
+        }
         switch(e)
         {
             case ".":
